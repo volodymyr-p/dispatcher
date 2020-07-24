@@ -1,0 +1,238 @@
+extends main
+block content
+    include partial/periodPicker.pug
+    #modaldialog.modal.fade(tabindex='-1', role='dialog', aria-labelledby='simpletableLabel', aria-hidden='true')
+        div
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×        
+                .modal-body      
+                    .row
+                        .col-md-12
+                            input#fulladress.form-control
+                        .col-md-3
+                            .list-group#adress_results
+                        .col-md-9
+                            #osm-map
+                            .form-actions
+                            .row
+                                .col-md-12
+                                    #okMapButton.btn.btn-success OK
+                                    #adresConfirm
+    #pageinfo(page=`${page}`)
+        div
+            a.hide4Superadmin.hide4Permomer.btn.btn-labeled.btn-success(href='javascript:void(0);', id="addStatementButton", data-toggle='modal', data-target='#simpletableModal', onclick="ClearForm();cookie2city();",style="margin-right: 10px;")
+                span.btn-label
+                    i.glyphicon.glyphicon-plus
+                = addButton
+            a.btn.btn-labeled.btn-info(onclick="openArchive();", id="archiveBtn")
+                span.btn-label 
+                    i.fa.fa-lg.fa-fw.fa-archive
+                = l.archive       
+    #simpletableModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='simpletableLabel', aria-hidden='true')
+        .modal-dialog.modal-mostlarge
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                    h4#simpletableLabel.modal-title= l.add_statement_label
+                        =ArticlePost
+                .modal-body
+                    h2#post_message.alert
+                    form#simpletableForm(data-disable="false")
+                        fieldset
+                            .form-group
+                                .row
+                                    .col-md-12
+                                        .col-md-3
+                                            legend= l.user
+                                            label= l.last_name
+                                            input#last_name.form-control(type='text' name='last_name' maxlength=50 autocomplete="off")
+                                            label= l.first_name
+                                            input#first_name.form-control(type='text' name='first_name' maxlength=50 autocomplete="off")
+                                            label= l.middle_name
+                                            input#middle_name.form-control(type='text' name='middle_name' maxlength=50 autocomplete="off")
+                                            label= l.mobile_phone
+                                            input#formMobile_phoneField.form-control(type='text' name='mobile_phone' maxlength=50 autocomplete="off")
+                                        .col-md-3
+                                            legend= l.purpose
+                                            label= l.statement_variety
+                                            .row#statement_variety_select                                                                                      
+                                                select.form-control#statement_variety(name='statement_variety' required='true' autocomplete="off")
+                                            .row#statement_variety_inputs4add(style="display: none;")
+                                                .col-md-8                                       
+                                                    input.form-control#statement_variety_add_input
+                                                .col-md-2
+                                                    a.btn.btn-success(onclick="varietyAddingAdd()")
+                                                        i.fa.fa-check.fa-lg
+                                                .col-md-2
+                                                    a.btn.btn-danger(onclick="varietyAddingClose()")
+                                                        i.fa.fa-times.fa-lg
+                                                                                                                          
+                                            label= l.reasonforpetition
+                                            .row#statement_malfunction_select
+                                                select.form-control#statement_malfunction(name='statement_malfunction' required='true' autocomplete="off")                                               
+                                            .row#statement_malfunction_inputs4add(style="display: none;")
+                                                .col-md-8                                       
+                                                    input.form-control#statement_malfunction_add_input
+                                                .col-md-2
+                                                    a.btn.btn-success(onclick="malfunctionAddingAdd()")
+                                                        i.fa.fa-check.fa-lg
+                                                .col-md-2
+                                                    a.btn.btn-danger(onclick="malfunctionAddingClose()")
+                                                        i.fa.fa-times.fa-lg
+
+                                            label= l.city2
+                                            input.form-control(type='text' name='id_org', class='hidden')#id_org
+
+                                        .col-md-3
+                                            legend= l.address
+                                            label= l.city
+                                            input.form-control(type='text' name='city' required='true' maxlength=60 autocomplete="off")#formCityField
+                                            label= l.street
+                                            input.form-control(type='text' name='street' maxlength=100 autocomplete="off")#formStreetField
+                                            label= l.house
+                                            input.form-control(type='text' name='house' maxlength=100 autocomplete="off")#formHouseField
+                                            label= l.housing
+                                            input.form-control(type='text' name='entrance' maxlength=50 autocomplete="off")#formFloorField
+                                            label= l.apartment
+                                            input.form-control(type='text' name='apartment' maxlength=50 autocomplete="off")#formApartmentField
+                                        .col-md-3
+                                            legend= l.additionally
+                                            .col-md-12
+                                                a#searchButton.btn.btn-labeled.btn-success(data-toggle='modal' data-target='#modaldialog' onclick="fixMap()")
+                                                    span.btn-label
+                                                        i.glyphicon.glyphicon-map-marker
+                                                    = l.setcoords
+                                            label= l.latitude
+                                            input.form-control(type='text' name='coord_latitude' maxlength=50)#formCoord_latitudeField
+                                            label= l.longitude
+                                            input.form-control(type='text' name='coord_longitude' maxlength=50)#formCoord_longitudeField
+                                            label= l.additional_info
+                                            textarea.form-control(type='text' name='additional_info', rows="5" maxlength=1000)#formAdditional_infoField
+
+                        .form-actions
+                            .row
+                                .col-md-12
+                                    button(type='submit')#AddButton.btn.btn-success= l.save 
+
+    #changeStatusModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='lalalabel', aria-hidden='true')
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                    h4#changeStatusLabel.modal-title= l.changeStatusLabel
+                        =ArticlePost
+                .modal-body
+                    form(data-disable="false")
+                        fieldset
+                            .form-group                                
+                                .row
+                                    .col-md-12
+                                        label= l.status
+                                        select.form-control(name='team')#status_select
+                                        div#reasonForRefuse
+                        .form-actions
+                            .row
+                                .col-md-12
+                                    div()#setStatusButton.btn.btn-success= l.save
+                           
+    #setTeamModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='lalalabel', aria-hidden='true', TODO='настояще модальное тут')
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                    h4#setTeamLable.modal-title= l.setTeamLable
+                        =ArticlePost
+                .modal-body
+                    form(data-disable="false")
+                        fieldset
+                            .form-group                                
+                                .row
+                                    .col-md-12
+                                        label= l.team
+                                        select.form-control(name='team')#teamselect
+                        .form-actions
+                            .row
+                                .col-md-12
+                                    div()#setTeamButton.btn.btn-success= l.save
+
+    #uploadFilesModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='lalalabel', aria-hidden='true')
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                    h4#uploadFilesModalLabel.modal-title= l.uploadFilesModalLabel
+                        =ArticlePost
+                .modal-body
+                    div(data-disable="false")
+                        fieldset
+                            .form-group                                
+                                .row
+                                    .col-md-12
+                                        form(action='/files' enctype='multipart/form-data' method='post')
+                                            input#fileslist(type='file' name='upload' multiple)
+                                            input(type='button' onclick="sendFiles()" value=`${l.upload}`).btn.btn-success
+                                        .progress
+                                            .bar
+                                            .percent 0%
+                                        #status
+                                            
+    #statementInfoModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='lalalabel', aria-hidden='true')
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                    h4#statementInfoLabel.modal-title= l.statement_info
+                .modal-body
+                    form(data-disable="false")
+                        fieldset
+                            .form-group                                
+                                .row
+                                    .col-md-12
+                                        label#labelLog 
+                    h4=l.uploaded_photo
+                        hr
+                        form(data-disable="false")
+                            fieldset
+                                .form-group 
+                                    div#statementImages
+                        .form-actions
+                            .row
+                                .col-md-12
+                                    div#closeButton.btn.btn-success(data-dismiss="modal")= l.close
+    #fullScreenImageModal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-header
+                    button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                .modal-body
+                    div#fullScreenImageDiv
+
+
+    table#dt_basic.table.table-striped.table-bordered.table-hover
+
+    // PAGE RELATED PLUGIN(S)
+    script(src='js/plugin/datatables/jquery.dataTables.min.js')
+    script(src='js/plugin/datatables/dataTables.colVis.min.js')
+    script(src='js/plugin/datatables/dataTables.tableTools.min.js')
+    script(src='js/plugin/datatables/dataTables.bootstrap.min.js')
+    script(src='js/plugin/datatable-responsive/datatables.responsive.min.js')
+    script(src='js/plugin/bootstrapvalidator/bootstrapValidator.min.js')    
+
+    
+    link(href='/stylesheets/mainTable.css', rel='stylesheet')
+
+    script(src='https://unpkg.com/leaflet@1.0.1/dist/leaflet.js')
+    link(href='https://unpkg.com/leaflet@1.0.1/dist/leaflet.css', rel='stylesheet')
+
+    script(src='https://unpkg.com/esri-leaflet')
+    link(href='https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css', rel='stylesheet')
+    script(src='https://unpkg.com/esri-leaflet-geocoder')
+
+    script(src="js/statementsDataTable.js")
+    script(src='js/form_edit_add_delete.js')
+    script(src='js/fillDropDownList.js')
+    script(src='js/notificationScript.js')
+    script(src='js/uploadFiles.js')
+
+

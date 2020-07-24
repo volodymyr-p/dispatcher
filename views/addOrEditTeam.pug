@@ -1,0 +1,25 @@
+extends templateAddOrEdit
+
+block addoreditForm
+    form#simpletableForm()
+        fieldset
+            .form-group
+                .row
+                    .col-md-12
+                        label= l.name
+                        input.form-control(type='text' name='name' required='true' maxlength=20 autocomplete="off")#form_name
+                        label= l.notes
+                        input.form-control(type='text' name='notes' maxlength=200 autocomplete="off")#form_notes                        
+                        label= l.vehicle
+                        select.form-control(name='vehicle' autocomplete="off")#vehicle_select  
+        label#teamCrew Склад команди: 
+        br
+        select(multiple="multiple" hidden="hidden")#multiple_selected_users
+        .form-actions
+            .row
+                .col-md-12
+                    button(type="submit")#AddButton.btn.btn-success= l.save 
+
+    script(src='/js/team.js')  
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js')

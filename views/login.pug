@@ -1,0 +1,101 @@
+﻿html#extr-page(lang='en-us')
+  head
+    meta(charset='utf-8')
+    title= l.title
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    // #CSS Links
+    // Basic Styles
+    link(rel='stylesheet', type='text/css', media='screen', href='css/bootstrap.min.css')
+    link(rel='stylesheet', type='text/css', media='screen', href='css/font-awesome.min.css')
+    // SmartAdmin Styles : Caution! DO NOT change the order
+    link(rel='stylesheet', type='text/css', media='screen', href='css/smartadmin-production-plugins.min.css')
+    link(rel='stylesheet', type='text/css', media='screen', href='css/smartadmin-production.min.css')
+    link(rel='stylesheet', type='text/css', media='screen', href='css/smartadmin-skins.min.css')
+    // SmartAdmin RTL Support
+    link(rel='stylesheet', type='text/css', media='screen', href='css/smartadmin-rtl.min.css')
+    
+
+    link(rel='shortcut icon', href='img/favicon/favicon.ico', type='image/x-icon')
+    link(rel='icon', href='img/favicon/favicon.ico', type='image/x-icon')
+    // #GOOGLE FONT
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700')
+    
+    body.animated.fadeInDown.desktop-detected.pace-done.mobile-view-activated
+    .pace.pace-inactive
+      .pace-progress(data-progress-text='100%', data-progress='99', style='transform: translate3d(0%, 0px, 0px);')
+        .pace-progress-inner
+      .pace-activity
+    header#header(style="overflow: visible")
+      .pull-right
+        ul.header-dropdown-list.hidden-xs.pull-right
+          li
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              img.flag(src='img/blank.gif', id="langImg")
+              span(id="langSpan")
+              i.fa.fa-angle-down
+            ul.dropdown-menu.pull-right
+              li
+                a(href='javascript:void(0);', onclick=`SetLang('en')`)
+                  img.flag.flag-us(src='img/blank.gif', alt='United States')
+                  |  English (US)
+              li
+                a(href='javascript:void(0);', onclick=`SetLang('ru')`)
+                  img.flag.flag-ru(src='img/blank.gif', alt='Russia')
+                  |  Русский
+              li
+                a(href='javascript:void(0);', onclick=`SetLang('ua')`)
+                  img.flag.flag-ua(src='img/blank.gif', alt='Ukraine')
+                  |  Українська
+
+      #istr.btn-header.transparent
+        span
+          a(href="/documents/Інструкція.pdf")
+            i.fa.fa-download Інструкція (pdf)
+
+    #main(role='main')
+      #content.container
+        .row
+          .col-md-4.col-md-offset-4
+            .well.no-padding
+              form#login-form.smart-form.client-form(action='index.html', novalidate='novalidate')
+                header= l.signin
+                fieldset
+                  section
+                    label.label= l.email
+                    label.input
+                      i.icon-append.fa.fa-user
+                      input#email(type='email', name='email')
+                      b.tooltip.tooltip-top-right
+                        i.fa.fa-user.txt-color-teal
+                        = l.setmail
+                  section
+                    label.label= l.pass
+                    label.input
+                      i.icon-append.fa.fa-lock
+                      input#pass(type='password', name='password')
+                      b.tooltip.tooltip-top-right
+                        i.fa.fa-lock.txt-color-teal
+                        = l.enterpass
+                footer
+                  div.btn.btn-primary(onclick="signIn()")= l.signin
+    script(src='js/plugin/pace/pace.min.js')
+    script(src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+    script.
+      if (!window.jQuery) { document.write('<script src="js/libs/jquery-2.1.1.min.js"><\\/script>');}
+    script(src='js/libs/jquery-2.1.1.min.js')
+    script(src='//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js')
+    script.
+      if (!window.jQuery.ui) { document.write('<script src="js/libs/jquery-ui-1.10.3.min.js"><\\/script>');}
+    script(src='js/libs/jquery-ui-1.10.3.min.js')
+    script(src='js/main.js')
+    script(src='js/app.config.js')
+    script(src='js/bootstrap/bootstrap.min.js')
+    script(src='js/plugin/jquery-validate/jquery.validate.min.js')
+    script(src='js/plugin/masked-input/jquery.maskedinput.min.js')
+    // MAIN APP JS FILE
+    script(src='js/app.min.js')
+    script(src='js/login.js')
+
+    // CUSTOM NOTIFICATION 
+    script(src='js/notification/SmartNotification.min.js')

@@ -1,0 +1,15 @@
+extends templateAddOrEdit
+
+block addoreditForm
+    form#simpletableForm()
+        fieldset
+            .form-group
+                .row
+                    .col-md-12
+                        label.control-label= l.statement_variety 
+                        input.form-control(type='text' name='variety_name' required='true' maxlength=40 autocomplete="off")#formStatusNameField
+        .form-actions
+            .row
+                .col-md-12
+                    button(type="submit")#AddButton.btn.btn-success= l.save 
+    script(src='js/form_edit_add_delete.js')

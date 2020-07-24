@@ -1,0 +1,158 @@
+doctype html
+html(lang='en-us')
+  head
+    meta(charset='utf-8')
+    title= l.title
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    link(rel='stylesheet', type='text/css', media='screen', href='css/bootstrap.min.css')
+    
+    link(rel='stylesheet', type='text/css', media='screen', href='css/bootstrap-datetimepicker.min.css')
+
+    link(rel='stylesheet', type='text/css', media='screen', href='css/font-awesome.min.css')
+
+    link(rel='stylesheet', type='text/css', media='screen', href='css/smartadmin-production-plugins.min.css')
+    link(rel='stylesheet', type='text/css', media='screen', href='css/smartadmin-production.min.css')
+
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700') 
+    link(rel='stylesheet', type='text/css', media='screen', href='css/your_style.css')
+body
+  script(data-pace-options='{ "restartOnRequestAfter": true }', src='js/plugin/pace/pace.min.js')
+  script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+  script(src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js')
+  script(src='/js/main.js')
+  script(src='/js/isLogin.js')
+  script(src='/js/app.config.js')
+  script(src='/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js')
+  script(src='/js/bootstrap/bootstrap.min.js')
+  script(src='/js/notification/SmartNotification.min.js')
+  script(src='/js/smartwidgets/jarvis.widget.min.js')
+  script(src='/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js')
+  script(src='/js/plugin/sparkline/jquery.sparkline.min.js')
+  script(src='/js/plugin/jquery-validate/jquery.validate.min.js')
+  script(src='/js/plugin/masked-input/jquery.maskedinput.min.js')
+  script(src='/js/jquery-ui-1.9.2.slider.min.js')
+  script(src='/js/plugin/msie-fix/jquery.mb.browser.min.js')
+  script(src='/js/plugin/fastclick/fastclick.min.js')
+  script(src='/js/demo.min.js')
+  script(src='/js/app.min.js')
+  script(src='/js/speech/voicecommand.min.js')
+  script(src='/js/smart-chat-ui/smart.chat.ui.min.js')
+  script(src='/js/smart-chat-ui/smart.chat.manager.min.js')
+  script(src='/socket.io/socket.io.js')
+  script(src='/js/notifCheckScript.js')
+  script(src='/js/bootstrap-datetimepicker.min.js')
+  script(src='/js/locales/bootstrap-datetimepicker.ru.js')
+  script(src='/js/locales/bootstrap-datetimepicker.ua.js')
+  script(src='/js/locales/bootstrap-datetimepicker.uk.js')
+
+  .content 
+    header#header
+      .pull-right
+        #hide-menu.btn-header.pull-right
+          span
+            a(href='javascript:void(0);', data-action='toggleMenu',  title=`${l.collapse_menu}`)
+              i.fa.fa-reorder
+
+        #logout.btn-header.transparent.pull-right
+          span
+            a(href='/logreg', title=`${l.sign_out}`, data-action='userLogout')
+              i.fa.fa-sign-out
+        #fullscreen.btn-header.transparent.pull-right
+          span
+            a(href='javascript:void(0);', data-action='launchFullscreen', title=`${l.full_screen}`)
+              i.fa.fa-arrows-alt
+
+        ul.header-dropdown-list.hidden-xs
+          li
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              img.flag(src='img/blank.gif', id="langImg")
+              span(id="langSpan")
+              i.fa.fa-angle-down
+            ul.dropdown-menu.pull-right
+              li
+                a(href='javascript:void(0);', onclick=`SetLang('en')`)
+                  img.flag.flag-us(src='img/blank.gif', alt='United States')
+                  |  English (US)
+              li
+                a(href='javascript:void(0);', onclick=`SetLang('ru')`)
+                  img.flag.flag-ru(src='img/blank.gif', alt='Russia')
+                  |  Русский
+              li
+                a(href='javascript:void(0);', onclick=`SetLang('ua')`)
+                  img.flag.flag-ua(src='img/blank.gif', alt='Ukraine')
+                  |  Українська
+
+    aside#left-panel
+      .login-info
+        span
+          a#show-shortcut(href='javascript:void(0);', data-action='toggleShortcut')
+            img#userroleico.online(alt='me')
+            span#username
+            
+      nav
+        ul
+          li
+            a(href='/statements') 
+              i.fa.fa-lg.fa-fw.fa-list-alt
+              span.menu-item-parent= l.statements
+
+          li
+            a(href='/working-time') 
+              i.fa.fa-lg.fa-fw.fa-clock-o
+              span.menu-item-parent= l.timeTracking
+
+          li
+            a(href='/counters') 
+              i.fa.fa-lg.fa-fw.fa-television
+              span.menu-item-parent= l.meter_readings
+
+          li.hide4Permomer
+            a(href='#')
+              i.fa.fa-lg.fa-fw.fa-pencil-square-o
+              span.menu-item-parent= l.settings
+            ul
+              li.hide4Superadmin
+                a(href='/malfunctions')= l.malfunctions
+              li.hide4Operator.hide4Admin
+                a(href='/organizations')= l.organizations   
+              li.hide4Superadmin
+                a(href='/varieties')= l.statement_variety
+              li.hide4Operator
+                a(href='/registration-admin')= l.user_registration
+              li.hide4Superadmin
+                a(href='/vehicles')= l.vehicle
+              li.hide4Superadmin
+                a(href='/teams')= l.team
+          li
+            a(href='#')
+              i.fa.fa-lg.fa-fw.fa-users
+              span.menu-item-parent= l.statistics_pages
+            ul
+              li
+                a(href='/statistics')= l.statistics
+              li
+                a(href='/statistics-variety')= l.statistics_v
+              li
+                a(href='/amount-statements')= l.amount_statements
+              li
+                a(href='/working-statistics')= l.working_statistics
+              li
+                a(href='/working-statistics-calendar')= l.calendar
+              li
+                a(href='/teams-statistics')= l.teamStatistics
+
+          li
+            a(href='/location') 
+              i.fa.fa-lg.fa-fw.fa-map-o
+              span.menu-item-parent= l.map
+
+      span.minifyme(data-action='minifyMenu')
+        i.fa.fa-arrow-circle-left.hit
+    #main(role='main')
+      #ribbon.hidden
+        span.ribbon-button-alignment
+          span#refresh.btn.btn-ribbon(data-action='resetWidgets', data-title='refresh', rel='tooltip', data-placement='bottom', data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings.", data-html='true')
+            i.fa.fa-refresh
+      #content
+        block content
+        

@@ -1,0 +1,17 @@
+div#periodPicker(style="display:none; margin-bottom: 10px")
+    #filterContainer
+    label.floatLeft= l.from
+    input#from.floatLeft(name='calendarFrom')
+
+    label.floatLeft= l.to
+    input#to.floatLeft(name='calendarTo')
+
+    button(type="submit")#sendDate.floatLeft= l.showPeriod 
+    br
+    br
+    label(style="margin-right: 10px")=l.show_archive_by_inteval
+    .btn-group(role='group', aria-label='Interval choosing')
+    button.btn-secondary( onclick="fastChooseInterval('hour')")=l.hour
+    button.btn-secondary( onclick="fastChooseInterval('day')")=l.day
+    button.btn-secondary(type='button' onclick="fastChooseInterval('month')")=l.month
+    button.btn-secondary(type='button' onclick="fastChooseInterval('year')")=l.year

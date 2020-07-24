@@ -1,0 +1,52 @@
+
+extends main
+
+block content
+  #pageinfo(page=`${page}`)
+
+    #filterContainer
+      select#userSelect.hide4Permomer
+
+    .container
+      .cal1
+      .cal2
+        script#template-calendar(type='text/template').
+          <div class="clndr-controls">
+          <div class="clndr-previous-button">&lsaquo;</div>
+          <div class="month"><%= month %></div>
+          <div class="clndr-next-button">&rsaquo;</div>
+          </div>
+          <div class="clndr-grid">
+          <div class="days-of-the-week">
+          <% _.each(daysOfTheWeek, function(day) { %>
+          <div class="header-day"><%= day %></div>
+          <% }); %>
+          <div class="days">
+          <% _.each(days, function(day) { %>
+          <div class="<%= day.classes %>"><%= day.day %></div>
+          <% }); %>
+          </div>
+          </div>
+          </div>
+          <div class="clndr-today-button">Today</div>   
+
+  //- script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js')
+  link(rel='stylesheet' type='text/css' media='screen' href='css/clndr.css')
+  link(rel='stylesheet' type='text/css' media='screen' href='css/clndr.less')
+  script(src='http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js')
+  //- script(src='js/calendar/moment-2.5.1.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment-with-langs.min.js')
+  script(src='js/calendar/clndr.js')
+  script(src='js/calendar/site.js')
+  script(src='js/calendar/json2.js')
+  script(src='js/plugin/datatables/jquery.dataTables.min.js')
+  script(src='js/plugin/datatables/dataTables.colVis.min.js')
+  script(src='js/plugin/datatables/dataTables.tableTools.min.js')
+  script(src='js/plugin/datatables/dataTables.bootstrap.min.js')
+  script(src='js/plugin/datatable-responsive/datatables.responsive.min.js')
+  script(src='js/plugin/bootstrapvalidator/bootstrapValidator.min.js')
+  script(src='js/statisticsCalendar.js')
+  //- script(src='js/statysticsFront.js')
+  //- script(src='js/edit_simple_table.js')
+  //- script(src='js/form_edit_add_delete.js')
+

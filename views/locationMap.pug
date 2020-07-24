@@ -1,0 +1,111 @@
+extends main
+
+block content
+
+    .modal#modalHelp
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h4.modal-title Helpers
+                    button.close(type='button' data-dismiss='modal') ×
+                .modal-body
+                    a Для того чтоб отправлять свои координаты нужно установить приложение
+                    a(href='https://play.google.com/store/apps/details?id=org.traccar.client&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1')
+                        img(alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' style="height: 70px;") 
+                    |Traccar
+                    br
+                    a Запустите приложение и измените следующие настройки:
+                    br
+                    a Идентификатор устройства: Ваше ФИО
+                    br
+                    a URL сервера: http://vyshgorod-vodokanal.kiev.ua/location
+                    br
+                    a Частота: 120
+                .modal-footer
+                    button.btn.btn-danger(type='button' data-dismiss='modal') Close
+    .row
+        .col-sm-3
+            a.btn.btn-labeled.btn-success#addBut(href='javascript:void(0);' data-toggle='modal' data-target='#modalHelp')
+                span.btn-label
+                    i.fa.fa-fw.fa-question-circle 
+                |Help
+
+            input#seeUnactive(type='checkbox', name='checkbox')
+            span Show Unactive users
+            
+            #users
+
+            input#datefrom.form_datetime(size='16' type='text' value='2010-01-01 00:00' readonly)
+            input#dateto.form_datetime(size='16' type='text' value='2010-01-01 00:00' readonly)         
+            br           
+            button.btn.btn-primary(type='button', onclick="LoadPeriodData()") Данные за период
+            br
+            br
+            
+            #Data                
+                div(style="border: 1px black dashed") 
+                    div Отображение
+                    input#as_path(type='checkbox' name='gender' value='as_path' checked="checked") 
+                    |Путь    .
+                    input#as_points(type='checkbox' name='gender' value='as_points') 
+                    |Точки    .
+                    input#isseepointspopup(type='checkbox' name='gender' value='isseepointspopup') 
+                    |Показать даты сразу    . 
+                    
+                div(style="border: 1px black dashed") 
+                    div Фильтровать?
+                        input#isneedfilter(type='checkbox' name='gender' value='isneedfilter' checked="checked") 
+                        
+                div(style='border: 1px black dashed')
+                    div Выбрать сервис поиска
+                    p
+                        input#radioButton(type='radio' name='serverChoice' value='Nominatim' checked="checked" title='быстрее но небольшое количество запросов')
+                        | by Nominatim 
+                         
+                        input#radioButton1(type='radio' name='serverChoice' value='LocationIQ' title='медленее но больше запросов')
+                        |Search by LocationIQ.com
+                         
+
+
+                div(style="display: none")
+                    div(style="border: 1px black dashed") 
+                        div Точность в метрах
+                        input#slider(value="20")
+
+                    div(style="border: 1px black dashed") 
+                        div Группировка по адресу (точки в указанном радиусе превращаются в одну)
+                        input#pointsinpoint(value="25")
+
+                    div(style="border: 1px black dashed")
+                        div Максимальная скорость Выскочки (км/час)
+                        input#maxSpeed(value="5")
+                        p как это работает: берем 3 точки, узнаем расстояние 1 и 3, зная даты узнаем скорость между 1 и 3 если она меньше за "Максимальная скорость" то .
+                            | Берем суммарное расстояние между точками 1-2 и 2-3 если скорость движения на отрезках (1-2 или 2-3) больше за "Максимальная скорость"
+                            | то точка 2 вырезается и просходит сделующая итерация (c той же точки 1)
+                            | (http://dtp-profi.ru/page15.html) (для пешехода 5)
+
+                    #adress
+                    br
+                
+                br
+                button.btn.btn-primary(type='button', onclick="LoadAdress_Streets()") Загрузить адреса Улицы
+                button.btn.btn-primary(type='button', onclick="AllUsersToExcel()") Загрузить всех пользователей
+            ul#adressLoaded
+            div#loading_progress
+        .col-sm#osmmap
+
+    script(src='https://unpkg.com/leaflet@1.0.1/dist/leaflet.js')
+    link(href='https://unpkg.com/leaflet@1.0.1/dist/leaflet.css', rel='stylesheet')
+    script(src='https://unpkg.com/esri-leaflet')
+    link(href='https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css', rel='stylesheet')
+    script(src='https://unpkg.com/esri-leaflet-geocoder')
+    script(src='https://unpkg.com/leaflet-ant-path')
+    script(src='js/bootstrap-datetimepicker.min.js' help="https://www.malot.fr/bootstrap-datetimepicker/demo.php")
+    script(src='js/locales/bootstrap-datetimepicker.ru.js')
+    script(src='js/locales/bootstrap-datetimepicker.ua.js')
+    script(src='js/locales/bootstrap-datetimepicker.uk.js')
+    
+    script(src='js/xlsx.full.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js' integrity crossorigin='anonymous')
+    
+    script(src='js/map.js')

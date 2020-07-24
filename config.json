@@ -1,0 +1,13 @@
+{
+    "sqlConfig": {
+        "connectionLimit" : ,
+        "host": "",
+        "user": "",
+        "password": "",
+        "database": "",
+        "insecureAuth": ,
+        "multipleStatements": 
+    },
+    "jsonwebtokenKey": "",
+    "appPort": ""
+}

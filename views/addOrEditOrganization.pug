@@ -1,0 +1,17 @@
+﻿extends templateAddOrEdit
+
+block addoreditForm
+    form#simpletableForm()
+        fieldset
+            .form-group
+                .row
+                    .col-md-12
+                        label.control-label= l.name
+                        input.form-control(type='text', name='organization_name', required='true' maxlength=50 autocomplete="off")#organization_name
+                        label= l.description
+                        input.form-control(type='text', maxlength=300,  name='description')#description
+        .form-actions
+            .row
+                .col-md-12
+                    button(type="submit")#AddButton.btn.btn-success= l.save 
+    script(src='js/form_edit_add_delete.js')

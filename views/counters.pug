@@ -1,0 +1,112 @@
+extends main
+
+block content
+  include partial/periodPicker.pug
+  div
+    #pageinfo(page=`${page}`)
+    a.btn.btn-labeled.btn-success#addBut(data-toggle='modal', data-target='#uploadFilesModal')
+      span.btn-label
+        i.glyphicon.glyphicon-plus
+      = l.submit_meter_readings
+
+    a.btn.btn-labeled.btn-primary#startProcessingMeters(onclick="startProcessingMeters();" data-toggle="modal"  href="#fullScreenImageModal" style="margin-left: 20px")
+      span.btn-label
+        i.glyphicon.glyphicon-play
+      = l.start_proсessing_meters
+
+    a.btn.btn-labeled.btn-info(onclick="openArchive();", id="archiveBtn" style="margin-left: 20px")
+        span.btn-label 
+            i.fa.fa-lg.fa-fw.fa-archive
+        = l.archive 
+    table#dt_basic.table.table-striped.table-bordered.table-hover(width='100%')
+                  
+  #uploadFilesModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='lalalabel', aria-hidden='true')
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+          h4.modal-title Загрузити фото
+        .modal-body
+          div(data-disable="false")
+            fieldset
+              .form-group                                
+                .row
+                  .col-md-12
+                    form(enctype='multipart/form-data' method='post')
+                      input#fileslist(type='file' name='upload' multiple required)
+                      label Місто
+                      input.form-control(type='text', name='city' required maxlength='50' autocomplete="off")#city
+                      label Вулиця
+                      input.form-control(type='text', name='street' required maxlength='50' autocomplete="off")#street
+                      .col-md-6
+                        label Будинок
+                        input.form-control(type='text', name='house_number' required maxlength='50' autocomplete="off")#house_number
+                      .col-md-6
+                        label Квартира
+                        input.form-control(type='number', name='flat_number' required maxlength='50' autocomplete="off")#flat_number
+                      label= l.counter_number
+                      input.form-control(type='number', name='counter_number' maxlength='20' autocomplete="off")#counter_number
+                      label= l.description
+                      textarea.form-control(type='text', name='description', rows="2" maxlength='200' autocomplete="off")#description
+                      input(type='submit' value=`${l.upload}`)#uploadBtn.btn.btn-success
+                      br
+                      label#errlabel
+                    .progress
+                      .bar
+                      .percent 0%
+                    #status
+  #fullScreenImageModal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+      .modal-dialog-centered.modal-xl
+          .modal-content.container
+              .modal-header
+                  button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+              .modal-body
+                  .col-md-8(style={'margin-bottom': '40px'})
+                    div#fullScreenImageDiv.text-center
+                  .col-md-4
+                    div#imageInfo
+                      h6 Номер лічильника: 
+                      p#idCounter
+                      hr
+                      h6 Адреса:
+                      p#adress
+                      hr
+                      h6 Передав покази:
+                      p#controllerName
+                      hr
+                      h6 Дата подачі:
+                      p#uploadDate
+                      hr
+                      h6 Опис:
+                      p#description 
+                      form#counterValueForm
+                        fieldset(style={'margin-top': '40px'})
+                          .form-group
+                            .row
+                              .col-md-12
+                                label.control-label Показник
+                                input#counterInput.form-control(type='number' name='counter_value' required maxlength=15 autocomplete="off")
+                                label#statusInfo
+                                input#idCounterHidden(type='hidden' name='counter_number')
+                                input#idUploadHidden(type='hidden' name='id_upload')
+                        .form-actions
+                          .row
+                            .col-md-12
+                              button(type="submit")#SubmitButton.btn.btn-success= l.save 
+
+  // PAGE RELATED PLUGIN(S)
+  script(src='js/plugin/datatables/jquery.dataTables.min.js')
+  script(src='js/plugin/datatables/dataTables.colVis.min.js')
+  script(src='js/plugin/datatables/dataTables.tableTools.min.js')
+  script(src='js/plugin/datatables/dataTables.bootstrap.min.js')
+  script(src='js/plugin/datatable-responsive/datatables.responsive.min.js')
+  script(src='js/plugin/bootstrapvalidator/bootstrapValidator.min.js')    
+
+  //- script(src='https://unpkg.com/leaflet@1.0.1/dist/leaflet.js')
+  //- link(href='https://unpkg.com/leaflet@1.0.1/dist/leaflet.css', rel='stylesheet')
+
+  script(src='js/edit_simple_table.js')
+  script(src='/js/form_edit_add_delete.js')   
+  script(src='js/counters.js')
+
+

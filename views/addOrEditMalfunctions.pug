@@ -1,0 +1,16 @@
+extends templateAddOrEdit
+
+block addoreditForm
+    form#simpletableForm()
+        fieldset
+            .form-group
+                .row
+                    .col-md-12
+                        label.control-label= l.name
+                        input.form-control(type='text', name='malfunction_name' required='true' maxlength=40 autocomplete="off")#formMalfunctionNameField
+        .form-actions
+            .row
+                .col-md-12
+                    button(type="submit")#AddButton.btn.btn-success= l.save 
+    script(src='js/form_edit_add_delete.js')
+

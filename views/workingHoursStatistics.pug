@@ -1,0 +1,31 @@
+extends main
+
+block content
+  #pageinfo(page=`${page}`)
+    .centerd
+      p.font-size-lg.text-center= l.period
+      .filterContainer
+        label.floatLeft= l.from
+        input#from.floatLeft(name='calendarFrom')
+
+        label.floatLeft= l.to
+        input#to.floatLeft(name='calendarTo')
+
+        button(type="submit")#sendDate.floatLeft= l.showPeriod 
+
+    table#dt_basic.table.table-striped.table-bordered.table-hover(width='100%')
+
+      script(src='https://www.amcharts.com/lib/4/core.js')
+      script(src='https://www.amcharts.com/lib/4/charts.js')
+      script(src='https://www.amcharts.com/lib/4/themes/animated.js')
+      script(src='js/plugin/datatables/jquery.dataTables.min.js')
+      script(src='js/plugin/datatables/dataTables.colVis.min.js')
+      script(src='js/plugin/datatables/dataTables.tableTools.min.js')
+      script(src='js/plugin/datatables/dataTables.bootstrap.min.js')
+      script(src='js/plugin/datatable-responsive/datatables.responsive.min.js')
+      script(src='js/plugin/bootstrapvalidator/bootstrapValidator.min.js')
+      script(src='js/statysticsFront.js')
+      script(src='js/timeTrackingStatistics.js')
+      //- script(src='js/edit_simple_table.js')
+      //- script(src='js/form_edit_add_delete.js')
+    
