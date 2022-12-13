@@ -17,7 +17,7 @@
     "bootstrap-icons": "^1.0.0-alpha2",
     "cookie-parser": "^1.4.0",
     "debug": "^2.2.0",
-    "express": "^4.14.0",
+    "express": "^4.17.3",
     "firebase-admin": "^8.9.0",
     "formidable": "^1.2.1",
     "json-merger": "^1.1.0",
